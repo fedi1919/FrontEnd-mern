@@ -23,13 +23,13 @@ function MainNavigation(props) {
     // <React.Fragment> renders multiple components side by side
     <React.Fragment>
       {drawerIsOpen && <Backdrop onClick={closeDrawerHandler} />}
-      {drawerIsOpen ? (
-        <SideDrawer>
-          <nav className="main-navigation__drawer-nav">
-            <NavLinks />
-          </nav>
-        </SideDrawer>
-      ) : null}
+
+      <SideDrawer show={drawerIsOpen} onClick={closeDrawerHandler}>
+        <nav className="main-navigation__drawer-nav">
+          <NavLinks />
+        </nav>
+      </SideDrawer>
+
       <MainHeader>
         <button
           className="main-navigation__menu-btn"
