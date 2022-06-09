@@ -6,6 +6,7 @@ import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import Users from "./user/pages/Users";
 import UserPlaces from "./places/pages/UserPlaces";
 import UpdatePlace from "./places/pages/UpdatePlace";
+import Auth from "./user/pages/Auth";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/places/new" element={<NewPlace />} exact />
           <Route path="/:userId/places" element={<UserPlaces />} exact />
           <Route path="/places/:placeId" element={<UpdatePlace />} />
+          <Route path="/auth" element={<Auth />} />
         </Routes>
       </main>
     </BrowserRouter>
