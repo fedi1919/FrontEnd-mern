@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import Card from "../../shared/components/UIElements/Card";
 import Input from "../../shared/components/FormElements/Input";
@@ -9,9 +9,12 @@ import {
   VALIDATOR_REQUIRE,
 } from "../../shared/util/validator";
 import { useForm } from "../../shared/hooks/form-hook";
+import { AuthContext } from "../../shared/context/auth-context";
+
 import "./Auth.css";
 
 const Auth = () => {
+  const auth = useContext(AuthContext);
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -51,9 +54,33 @@ const Auth = () => {
     setIsLoginMode((prevMode) => !prevMode); // updating the state if our new state based on prev state
   };
 
-  const authSubmitHandler = (event) => {
+  const authSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log(formState.inputs);
+
+    if (isLoginMode) {
+    } else {
+      //Sending a HTTP Request
+      try {
+        const respone = await fetch("http://localhost:5000/api/users/signup", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formState.inputs.name.value,
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+          }),
+        });
+
+        const responseData = await respone.json();
+        console.log(responseData);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    auth.login();
   };
 
   return (
